@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- NOVO: Lógica para o Menu Hambúrguer ---
+    // --- Lógica para o Menu Hambúrguer ---
     const hamburgerBtn = document.querySelector('.hamburger-menu');
     const mainNav = document.querySelector('.main-nav');
     const navLinks = document.querySelectorAll('.main-nav .nav-link'); // Seleciona todos os links do menu
@@ -29,9 +29,71 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-    // --- FIM NOVO: Lógica para o Menu Hambúrguer ---
+    // --- FIM Lógica para o Menu Hambúrguer ---
 
-    // Smooth scroll para os links do menu (Seu código existente)
+    // --- NOVO: Lógica para copiar CPF PIX ---
+    const copyPixCpfBtn = document.getElementById('copy-pix-cpf-btn');
+    const pixCpfValueSpan = document.getElementById('pix-cpf-value');
+    const copyFeedbackMessage = document.getElementById('copy-feedback-message');
+
+    if (copyPixCpfBtn && pixCpfValueSpan && copyFeedbackMessage) {
+        copyPixCpfBtn.addEventListener('click', () => {
+            const cpfToCopy = pixCpfValueSpan.textContent.trim(); // Pega o texto do span do CPF
+
+            // Usa a API Clipboard assíncrona (moderna)
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(cpfToCopy)
+                    .then(() => {
+                        copyFeedbackMessage.textContent = 'CPF Copiado!';
+                        copyFeedbackMessage.classList.add('show');
+                        copyPixCpfBtn.textContent = 'Copiado!'; // Texto temporário do botão
+                        setTimeout(() => {
+                            copyFeedbackMessage.textContent = '';
+                            copyFeedbackMessage.classList.remove('show');
+                            copyPixCpfBtn.textContent = 'Copiar CPF'; // Volta ao texto original do botão
+                        }, 2000); // Mensagem some após 2 segundos
+                    })
+                    .catch(err => {
+                        console.error('Erro ao copiar o CPF: ', err);
+                        copyFeedbackMessage.textContent = 'Erro ao copiar.';
+                        copyFeedbackMessage.classList.add('show');
+                        setTimeout(() => {
+                            copyFeedbackMessage.textContent = '';
+                            copyFeedbackMessage.classList.remove('show');
+                        }, 2000);
+                    });
+            } else {
+                // Fallback para navegadores mais antigos (usando document.execCommand)
+                const tempInput = document.createElement('textarea'); // Usar textarea para melhor compatibilidade
+                tempInput.value = cpfToCopy;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                try {
+                    document.execCommand('copy');
+                    copyFeedbackMessage.textContent = 'CPF Copiado!';
+                    copyFeedbackMessage.classList.add('show');
+                    copyPixCpfBtn.textContent = 'Copiado!'; // Texto temporário do botão
+                    setTimeout(() => {
+                        copyFeedbackMessage.textContent = '';
+                        copyFeedbackMessage.classList.remove('show');
+                        copyPixCpfBtn.textContent = 'Copiar CPF'; // Volta ao texto original do botão
+                    }, 2000);
+                } catch (err) {
+                    console.error('Erro ao copiar o CPF (fallback): ', err);
+                    copyFeedbackMessage.textContent = 'Erro ao copiar. Por favor, copie manualmente.';
+                    copyFeedbackMessage.classList.add('show');
+                    setTimeout(() => {
+                        copyFeedbackMessage.textContent = '';
+                        copyFeedbackMessage.classList.remove('show');
+                    }, 2000);
+                }
+                document.body.removeChild(tempInput);
+            }
+        });
+    }
+    // --- FIM NOVO: Lógica para copiar CPF PIX ---
+
+    // Smooth scroll para os links do menu
     document.querySelectorAll('.nav-link').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -42,12 +104,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Função auxiliar para formatar valores monetários (Seu código existente)
+    // Função auxiliar para formatar valores monetários
     function formatCurrency(amount) {
         return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(amount);
     }
 
-    // Lógica para carregar e exibir as metas e dados de arrecadação (Seu código existente)
+    // Lógica para carregar e exibir as metas e dados de arrecadação
     fetch('/static/goals.json')
         .then(response => response.json())
         .then(data => {
@@ -105,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(error => console.error('Erro ao carregar as metas:', error));
 
 
-    // Lógica para inicializar múltiplos Carrosséis de Imagens (Seu código existente)
+    // Lógica para inicializar múltiplos Carrosséis de Imagens
     function initializeCarousel(carouselContainer) {
         const carouselSlide = carouselContainer.querySelector('.carousel-slide');
         const carouselImages = carouselContainer.querySelectorAll('.carousel-slide .carousel-image');
@@ -152,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Inicializa todos os carrosséis encontrados na página (Seu código existente)
+    // Inicializa todos os carrosséis encontrados na página
     document.querySelectorAll('.carousel-container').forEach(carousel => {
         initializeCarousel(carousel);
     });
