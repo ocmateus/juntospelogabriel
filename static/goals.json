@@ -1,0 +1,31 @@
+{
+  "current_raised": 0.00,
+  "total_supporters": 0,
+  "goals": [
+    {
+      "name": "Prótese Transtibial",
+      "target_amount": 20000.00,
+      "description": "Prótese para a perna direita"
+    },
+    {
+      "name": "Prótese Transfemoral",
+      "target_amount": 120000.00,
+      "description": "Prótese com joelho para a perna esquerda."
+    },
+    {
+      "name": "Adaptação Residencial",
+      "target_amount": 75000.00,
+      "description": "Reformas na casa para acessibilidade"
+    },
+    {
+      "name": "Concluir Faculdade",
+      "target_amount": 25000.00,
+      "description": "Reformas na casa para acessibilidade"
+    },
+    {
+      "name": "Veículo Adaptado",
+      "target_amount": 80000.00,
+      "description": "Aquisição e adaptação de um carro para locomoção."
+    }
+  ]
+}

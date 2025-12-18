@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajude o Gabriel</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <a href="#home" class="nav-link">Inicial</a>
+            <a href="#historia" class="nav-link">História</a>
+            <a href="#acidente" class="nav-link">O Acidente</a>
+            <a href="#recuperacao" class="nav-link">A Recuperação</a>
+            <a href="#renovacao" class="nav-link">Renovação</a>
+            <a href="#doe" class="nav-link">Doe</a>
+            <a href="#metas" class="nav-link">Metas</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="section hero">
+            <div class="container">
+                <!-- Faixa para H1 -->
+                <div class="banner-heading">
+                    <h1>Uma Nova Jornada para o Gabriel</h1>
+                </div>
+                <p>Juntos podemos reconstruir a vida do Gabriel após um acidente devastador.</p>
+
+                <!-- NOVIDADE: Wrapper para o layout de duas colunas -->
+                <div class="home-content-wrapper">
+                    <!-- Coluna Esquerda: Carrossel de Imagens -->
+                    <div class="home-carousel-column">
+                        <div class="carousel-container">
+                            <div class="carousel-slide">
+                                <img src="/static/img/renovacao_8.jpeg" alt="Bruno, Rosaura, Mateus e Gabriel" class="carousel-image">
+                                <img src="/static/img/gabriel_1.jpeg" alt="Gabriel, Mateus e Nick" class="carousel-image">
+                                <img src="/static/img/gabriel_3.png" alt="Gabriel, Rosaura, Carine, Mateus e Edson" class="carousel-image">
+                                <img src="/static/img/gabriel_4.png" alt="Gabriel sorrindo" class="carousel-image">
+                                <img src="/static/img/vencer_1.png" alt="Gabriel em atividades diárias" class="carousel-image">
+                            </div>
+                            <div class="carousel-dots">
+                                <span class="dot active"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Coluna Direita: Painel de Arrecadação -->
+                    <div class="home-fundraising-column">
+                        <div class="fundraising-panel">
+                            <p class="panel-amount-raised">R$ <span id="panel-current-raised-amount">0,00</span></p>
+                            <p class="panel-supporters">apoiados por <span id="panel-total-supporters">0</span> pessoas</p>
+
+                            <div class="panel-progress-bar-container">
+                                <div id="panel-progress-bar" class="panel-progress-bar" style="width: 0%;"></div>
+                            </div>
+                            <p class="panel-percentage"><span id="panel-percentage-achieved">0</span>%</p>
+                            <p class="panel-goal-amount">Meta R$ 320.000,00</p>
+
+                            <a href="#doe" class="btn panel-btn-donate">Ajude o Gabriel</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIM DO NOVO WRAPPER -->
+
+                <!-- O botão antigo "Faça a Diferença, Doe Agora!" foi removido daqui -->
+
+            </div>
+        </section>
+
+        <section id="historia" class="section">
+            <div class="container">
+                <!-- Faixa para H2 -->
+                <div class="banner-heading">
+                    <h2>Gabriel, exemplo de humildade e alegria contagiante</h2>
+                </div>
+                <div class="centered-image-wrapper">
+                    <img src="/static/img/historia_gabriel.jpg" alt="Gabriel, mãe Rosaura e irmão Mateus" class="section-image">
+                    <p class="image-caption">Gabriel, um jovem cheio de vida e sonhos, com sua família.</p>
+                </div>
+                <p>Gabriel, quem o conhece, sabe: é a personificação da alegria e do otimismo. Seu sorrisão, genuinamente contagiante, têm o dom de iluminar qualquer ambiente, qualquer encontro, qualquer festa, levando todo mundo ao ser redor pra cima. Mesmo tendo enfrentado tantos desafios na sua vida.</p>
+                <p>26 anos, estudante de administração, apaixonado por esportes e pelos e-sports, amante incondicional dos animais e torcedor cabuloso do Cruzeiro. Gabriel vivia a vida como todo jovem: repleto de planos e sonhos para seu futuro. </p>
+                <p>Em sua jornada, ele encontrou em Brunna o amor de sua vida, uma parceira inseparável, cúmplice de sonhos e a sua maior alegria. Juntos, construíram uma história de amor e companheirismo que marcou profundamente a vida de ambos e de todos que testemunharam essa conexão especial.  </p>
+                <p>Ela o ajudou a superar a perda de seu irmão, Bruno, em um acidente no mar. Também o apoiou durante toda a doença de seu pai, mais uma vítima de câncer. Estiveram juntos como verdadeiros parceiros durante todas as alegrias e tristezas que a vida lhes trouxe.</p>
+
+                <div class="carousel-container">
+                    <div class="carousel-slide">
+                        <img src="/static/img/historia_1.jpg" alt="Bruno, Rosaura, Mateus e Gabriel" class="carousel-image">
+                        <img src="/static/img/historia_2.jpg" alt="Gabriel, Mateus e Nick" class="carousel-image">
+                        <img src="/static/img/historia_3.png" alt="Gabriel, Rosaura, Carine, Mateus e Edson" class="carousel-image">
+                        <img src="/static/img/historia_4.jpg" alt="Nick, Mateus, Gabriel, Nina, Nala, Rosaura e Brunna" class="carousel-image">
+                    </div>
+                    <div class="carousel-dots">
+                        <span class="dot active"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="acidente" class="section">
+            <div class="container">
+                <!-- Faixa para H2 -->
+                <div class="banner-heading">
+                    <h2>O dia que tudo mudou</h2>
+                </div>
+                 <div class="centered-image-wrapper">
+                    <img src="/static/img/acidente_1.png" alt="Acidente em Belo Horizonte" class="section-image">
+                    <p class="image-caption">07/09/2025</p>
+                </div>
+                <p>Gabriel, Brunna e Gustavo sofreram um acidente de carro dia 07/09/2025. Ao bater em um poste, o exterior do veículo ficou energizado. Ao sair do veículo, Gabriel e Brunna foram eletrocutados.</p>
+                <p>Brunna não resistiu. Perdemos uma das pessoas mais maravilhosas que conhecemos. Gabriel perdeu o amor da sua vida.</p>
+                <p>Gabriel foi levado as pressas para o Hospital João XXIII, em Belo Horizonte. Os médicos não deram esperanças para a família. </p>
+                 <div class="centered-image-wrapper">
+                    <img src="/static/img/brunna_1.png" alt="Brunna Rosas" class="section-image">
+                    <p class="image-caption">Brunna Rosas</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="recuperacao" class="section">
+            <div class="container">
+                <!-- Faixa para H2 -->
+                <div class="banner-heading">
+                    <h2>A recuperação</h2>
+                </div>
+                 <div class="centered-image-wrapper">
+                    <img src="/static/img/recuperacao_1.jpg" alt="Gabriel no Hospital João XXIII" class="section-image">
+                    <p class="image-caption">Recuperação no Hospital João XXIII</p>
+                </div>
+                <p>Gabriel sobreviveu a primeira noite, contrariando todas as probabilidades. Depois mais uma, mais duas noites... a cada dia que passava, ele batalhava em seu coma para acordar, para viver.</p>
+                <p>Os médicos informaram a família que seria necessário fazer a amputação das duas pernas. Sua mãe, uma das maiores guerreiras que o mundo já conheceu, implorou a Deus e sussurou várias vezes para Gabriel no leito "Acorda meu filho, eu quero você em casa". </p>
+                <p>E duas semanas depois, Gabriel acordou. O caminho foi longo, dois meses no hospital, mais de 5 cirurgias, lidando com o luto e as perdas. Mas ele batalhou, mostrou em todos os momentos a força e vontade de sobreviver. </p>
+                <p>Conquistou a todos no hospital com sua positividade. Enquanto todos esperavam ver desesperança, ele mostrava força. Venceu todos os prazos passados, e foi para casa, no que seria o dia do aniversário de 71 anos de seu pai: 03/11/2025. </p>
+                <div class="centered-image-wrapper">
+                    <img src="/static/img/recuperacao_2.jpg" alt="Alta no dia 03/11/2025" class="section-image">
+                    <p class="image-caption">Recebeu alta dia 03/11/2025</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="renovacao" class="section">
+            <div class="container">
+                <!-- Faixa para H2 -->
+                <div class="banner-heading">
+                    <h2>O Caminho para a Renovação</h2>
+                </div>
+                 <div class="centered-image-wrapper">
+                    <img src="/static/img/renovacao_8.jpeg" alt="adasd" class="section-image">
+                    <p class="image-caption">Seus novos pés</p>
+                </div>
+                <p>O caminho da renovação da vida do Gabriel terá várias etapas.</p>
+                <p>Cicatrização, fisioterapia, colocação de próteses, treinamento, reaprendizado...  </p>
+                <p>Terminar a faculdade, fazer obras de adaptação de sua casa... </p>
+                <p>Ele já iniciou os tratamentos, e precisará de ajuda para recuperar sua vida! </p>
+                <div class="carousel-container">
+                    <div class="carousel-slide">
+                        <img src="/static/img/renovacao_0.png" alt="Momento em família" class="carousel-image">
+                       <img src="/static/img/renovacao_9.jpeg" alt="Apoio médico" class="carousel-image">
+                       <img src="/static/img/renovacao_10.jpeg" alt="Apoio médico" class="carousel-image">
+                       <img src="/static/img/renovacao_11.jpeg" alt="Apoio médico" class="carousel-image">
+                       <img src="/static/img/renovacao_12.jpeg" alt="Apoio médico" class="carousel-image">
+                       <img src="/static/img/renovacao_14.jpeg" alt="Apoio médico" class="carousel-image">
+                    </div>
+                    <div class="carousel-dots">
+                        <span class="dot active"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="doe" class="section donate">
+            <div class="container">
+                <!-- Faixa para H2 -->
+                <div class="banner-heading">
+                    <h2>DOE E AJUDE O GABRIEL A RECOMEÇAR</h2>
+                </div>
+                 <div class="centered-image-wrapper">
+                    <img src="/static/img/truco_2.jpg" alt="adasd" class="section-image">
+                    <p class="image-caption">Espírito Vencedor</p>
+                </div>
+                <p>Sua contribuição é essencial para que o Gabriel possa ter acesso às próteses, adaptar seu lar, estudar e conseguir ir e vir!</p>
+                <p>Faça uma doação através do PIX:</p>
+                <div class="qr-code-wrapper">
+                    <img src="/static/img/qr_code.jpeg" alt="QR Code PIX Gabriel" class="qr-code">
+                    <p>Chave PIX (CPF): 111.049.476-92</p>
+                    <p>Nome: Gabriel de Faria Oliveira Carvalho</p>
+                </div>
+                <p>Sabemos que não está fácil pra ninguém. Por isso, qualquer valor faz a diferença. Vamos ajudá-lo a recuperar sua vida!</p>
+            </div>
+        </section>
+
+        <section id="metas" class="section goals">
+            <div class="container">
+                <!-- Faixa para H2 -->
+                <div class="banner-heading">
+                    <h2>Nossas Metas de Arrecadação</h2>
+                </div>
+                <p>Acompanhe o progresso da nossa campanha. Cada doação nos aproxima de um objetivo.</p>
+                <div class="progress-container">
+                    <p class="current-raised-text">Arrecadado até agora: <span id="current-raised-amount">R\$ 0,00</span></p>
+                    <div id="goals-list">
+                        <!-- As metas serão carregadas aqui pelo JavaScript -->
+                    </div>
+                    <p class="remaining-text">Faltam <span id="remaining-amount">R\$ 0,00</span> para atingir a meta total!</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2023 Ajude o Gabriel. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,513 @@
+/* Variáveis CSS para cores e sombras */
+:root {
+    --primary-color: #1A3763; /* Azul marinho, similar ao degradê do banner */
+    --secondary-color: #0F1E3D; /* Azul marinho mais escuro para hover/detalhes */
+    --accent-color: #FFC107; /* Amarelo */
+    --background-color: #f4f4f4; /* Cinza claro */
+    --text-color: #333; /* Texto principal */
+    --light-text-color: #666; /* Texto secundário */
+    --white: #fff;
+    --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Reset básico e estilos globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header e Navbar */
+.header {
+    background-color: var(--primary-color); /* Agora usa o novo azul marinho */
+    color: var(--white);
+    padding: 15px 0;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.nav-link {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-link:hover {
+    background-color: var(--secondary-color); /* Agora usa o azul marinho mais escuro */
+    border-radius: 4px;
+}
+
+/* Seções gerais */
+.section {
+    padding: 60px 0;
+    text-align: center;
+}
+
+.section:nth-of-type(even) { /* Estilo para seções pares */
+    background-color: var(--white);
+}
+
+p {
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+/* Botões */
+.btn {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: var(--white);
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px;
+}
+
+.btn:hover {
+    background-color: #e6b000; /* Um pouco mais escuro */
+    transform: translateY(-2px);
+}
+
+/* Estilos específicos para a seção Hero (home) */
+.hero {
+    background-image: url('/static/img/hero_background.jpg'); /* Adicione uma imagem de fundo se desejar */
+    background-size: cover;
+    background-position: center;
+    color: var(--white); /* Este é o estilo geral da seção hero */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    padding: 80px 20px;
+}
+
+/* Cor específica para a frase de destaque abaixo do título principal da home */
+/* Isso seleciona o primeiro parágrafo que é filho direto de .container dentro de .hero */
+.hero .container > p:first-of-type {
+    color: #444; /* Um cinza escuro para contraste */
+    text-shadow: none; /* Remove a sombra do texto se houver para melhor contraste no fundo claro */
+}
+
+
+/* Estilo para a faixa do cabeçalho (H1 e H2) */
+.banner-heading {
+    width: 100%; /* Largura total */
+    max-width: 900px; /* Limite a largura para melhor visualização em telas grandes */
+    margin: 30px auto; /* Centraliza a faixa e adiciona espaçamento vertical */
+    padding: 15px 20px; /* Preenchimento interno */
+    border-radius: 10px; /* Bordas arredondadas, como na imagem original */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil para dar profundidade */
+    display: flex;
+    align-items: center; /* Centraliza o texto verticalmente */
+    justify-content: center; /* Centraliza o texto horizontalmente */
+    text-align: center; /* Garante que o texto dentro seja centralizado */
+
+    /* Degradê azul marinho */
+    background: linear-gradient(to right, #0F1E3D, #1A3763); /* Do azul marinho escuro para um pouco mais claro */
+}
+
+/* Estilo para o texto H1 dentro da faixa */
+.banner-heading h1 {
+    color: #FFFFFF; /* Texto branco */
+    font-family: 'Luckiest Guy', cursive, sans-serif; /* Fonte principal, com fallbacks */
+    font-size: 3.2em; /* Tamanho maior para H1 */
+    text-transform: uppercase; /* Todas as letras maiúsculas */
+    margin: 0; /* Remove margem padrão do H1 */
+    line-height: 1.2; /* Altura da linha */
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3); /* Sombra no texto para destacá-lo */
+    letter-spacing: 2px; /* Espaçamento entre letras */
+}
+
+/* Estilo para o texto H2 dentro da faixa */
+.banner-heading h2 {
+    color: #FFFFFF; /* Texto branco */
+    font-family: 'Luckiest Guy', cursive, sans-serif; /* Fonte principal, com fallbacks */
+    font-size: 2.2em; /* Tamanho menor para H2 */
+    text-transform: uppercase; /* Todas as letras maiúsculas */
+    margin: 0; /* Remove margem padrão do H2 */
+    line-height: 1.2; /* Altura da linha */
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3); /* Sombra no texto para destacá-lo */
+    letter-spacing: 1.5px; /* Espaçamento entre letras */
+}
+
+
+/* NOVIDADE: Layout de duas colunas para a seção Home */
+.home-content-wrapper {
+    display: flex;
+    flex-wrap: wrap; /* Permite que as colunas quebrem para a próxima linha em telas menores */
+    gap: 30px; /* Espaço entre as colunas */
+    align-items: flex-start; /* Alinha os itens ao topo */
+    margin-top: 40px;
+    justify-content: center; /* Centraliza as colunas se houver espaço */
+}
+
+.home-carousel-column {
+    flex: 2; /* O carrossel ocupa 2/3 do espaço */
+    min-width: 300px; /* Largura mínima para o carrossel */
+    max-width: 700px;
+}
+
+.home-fundraising-column {
+    flex: 1; /* O painel de arrecadação ocupa 1/3 do espaço */
+    min-width: 280px; /* Largura mínima para o painel */
+    max-width: 400px;
+}
+
+/* Estilos para o Painel de Arrecadação na Home */
+.fundraising-panel {
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    padding: 30px;
+    text-align: center;
+    height: 100%; /* Garante que o painel ocupe a altura disponível na coluna */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribui o conteúdo verticalmente */
+}
+
+.panel-amount-raised {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: var(--primary-color); /* Agora usa o novo azul marinho */
+    margin-bottom: 5px;
+}
+
+.panel-supporters {
+    font-size: 1.1em;
+    color: var(--light-text-color);
+    margin-bottom: 20px;
+}
+
+.panel-progress-bar-container {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    height: 20px;
+    margin: 15px 0;
+    overflow: hidden; /* Garante que a barra de progresso não vaze */
+}
+
+.panel-progress-bar {
+    height: 100%;
+    background-color: var(--primary-color); /* Agora usa o novo azul marinho */
+    border-radius: 10px;
+    text-align: center;
+    color: var(--white);
+    font-weight: bold;
+    line-height: 20px; /* Centraliza o texto verticalmente */
+    transition: width 0.8s ease-out; /* Animação para o preenchimento */
+}
+
+.panel-percentage {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--primary-color); /* Agora usa o novo azul marinho */
+    margin-bottom: 10px;
+}
+
+.panel-goal-amount {
+    font-size: 1em;
+    color: var(--light-text-color);
+    margin-bottom: 30px;
+}
+
+/* Ajuste específico para o botão "Ajude o Gabriel" */
+.panel-btn-donate {
+    width: 100%; /* Ocupa toda a largura do painel */
+    margin-top: auto; /* Empurra o botão para o final do flex container */
+    background-color: #4CAF50; /* Cor verde original */
+}
+
+.panel-btn-donate:hover {
+    background-color: #388E3C; /* Cor verde mais escura para o hover */
+    transform: translateY(-2px);
+}
+
+
+/* Carrossel (ajustado para caber nas colunas) */
+.carousel-container {
+    position: relative;
+    max-width: 100%; /* Agora ocupa 100% da largura da sua coluna */
+    height: 700px;    /* Altura fixa para o carrossel */
+    margin: 0 auto; /* Removido margin-top/bottom para flexbox gerenciar */
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.carousel-slide {
+    display: flex;
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-image {
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+}
+
+.carousel-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dot.active {
+    background-color: var(--primary-color); /* Agora usa o novo azul marinho */
+}
+
+/* Estilos para a imagem centralizada na seção */
+.centered-image-wrapper {
+    text-align: center;
+    margin: 30px auto;
+    max-width: 600px; /* Largura máxima para a imagem */
+}
+
+.section-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    margin-bottom: 10px; /* Espaço entre a imagem e a legenda */
+}
+
+.image-caption {
+    font-style: italic;
+    color: var(--light-text-color);
+    font-size: 0.9em;
+    text-align: center;
+}
+
+/* Seção de Doação */
+.donate .qr-code-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.qr-code {
+    width: 200px;
+    height: 200px;
+    border: 5px solid var(--primary-color); /* Agora usa o novo azul marinho */
+    border-radius: 8px;
+}
+
+.donate p {
+    font-size: 1.1em;
+}
+
+/* Seção de Metas */
+.goals {
+    background-color: var(--background-color);
+}
+
+.progress-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.current-raised-text {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: var(--primary-color); /* Agora usa o novo azul marinho */
+    margin-bottom: 20px;
+}
+
+.goal-item {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.goal-item h3 {
+    color: var(--text-color);
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.progress-bar-container {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    height: 20px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: var(--accent-color); /* Mantido amarelo para diferenciação */
+    border-radius: 10px;
+    text-align: center;
+    color: var(--white);
+    font-weight: bold;
+    line-height: 20px;
+    transition: width 0.8s ease-out;
+    position: relative; /* Para posicionar o texto de progresso */
+}
+
+.progress-text {
+    position: absolute;
+    right: 5px; /* Ajuste a posição do texto dentro da barra */
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8em;
+    white-space: nowrap; /* Evita quebra de linha */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.goal-details {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95em;
+    color: var(--light-text-color);
+}
+
+.remaining-text {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--primary-color); /* Agora usa o novo azul marinho */
+    margin-top: 30px;
+}
+
+/* Footer */
+.footer {
+    background-color: var(--text-color);
+    color: var(--white);
+    padding: 20px 0;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+/* Media Queries para Responsividade */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .hero h1 {
+        font-size: 2.2em;
+    }
+
+    .hero p {
+        font-size: 1em;
+    }
+
+    /* Colunas da home se empilham em telas menores */
+    .home-content-wrapper {
+        flex-direction: column;
+        align-items: center; /* Centraliza os itens empilhados */
+    }
+
+    .home-carousel-column,
+    .home-fundraising-column {
+        width: 100%;
+        max-width: 400px; /* Limita a largura para não esticar demais em celulares */
+    }
+
+    .carousel-container {
+        height: 400px; /* Ajusta a altura do carrossel para telas menores */
+    }
+
+    .fundraising-panel {
+        padding: 20px;
+    }
+
+    .panel-amount-raised {
+        font-size: 2em;
+    }
+
+    .panel-supporters {
+        font-size: 1em;
+    }
+
+    .panel-percentage {
+        font-size: 1.2em;
+    }
+
+    /* Responsividade para faixas de cabeçalho */
+    .banner-heading {
+        margin: 20px auto;
+        padding: 10px 15px;
+        border-radius: 8px;
+    }
+    .banner-heading h1 {
+        font-size: 2.5em;
+        letter-spacing: 1.5px;
+    }
+    .banner-heading h2 {
+        font-size: 1.8em;
+        letter-spacing: 1px;
+    }
+
+    /* Ajuste para a frase de destaque no mobile */
+    .hero .container > p:first-of-type {
+        color: #444; /* Mantém a cor escura no mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .banner-heading {
+        margin: 15px auto;
+        padding: 8px 10px;
+        border-radius: 6px;
+    }
+    .banner-heading h1 {
+        font-size: 1.8em;
+        letter-spacing: 1px;
+    }
+    .banner-heading h2 {
+        font-size: 1.4em;
+        letter-spacing: 0.8px;
+    }
+
+    /* Ajuste para a frase de destaque no mobile pequeno */
+    .hero .container > p:first-of-type {
+        color: #444; /* Mantém a cor escura no mobile */
+    }
+}
