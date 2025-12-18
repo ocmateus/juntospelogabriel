@@ -11,15 +11,30 @@
 </head>
 <body>
     <header class="header">
-        <nav class="navbar">
-            <a href="#home" class="nav-link">Inicial</a>
-            <a href="#historia" class="nav-link">História</a>
-            <a href="#acidente" class="nav-link">O Acidente</a>
-            <a href="#recuperacao" class="nav-link">A Recuperação</a>
-            <a href="#renovacao" class="nav-link">Renovação</a>
-            <a href="#doe" class="nav-link">Doe</a>
-            <a href="#metas" class="nav-link">Metas</a>
-        </nav>
+        <div class="container">
+            <!-- Logo ou título do site -->
+            <a href="#home" class="site-logo">Juntos pelo Gabriel</a>
+
+            <!-- Botão Hambúrguer -->
+            <button class="hamburger-menu" aria-label="Abrir menu" aria-expanded="false">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+
+            <!-- Seu Menu de Navegação -->
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#home" class="nav-link">Inicial</a></li>
+                    <li><a href="#historia" class="nav-link">História</a></li>
+                    <li><a href="#acidente" class="nav-link">O Acidente</a></li>
+                    <li><a href="#recuperacao" class="nav-link">A Recuperação</a></li>
+                    <li><a href="#renovacao" class="nav-link">Renovação</a></li>
+                    <li><a href="#doe" class="nav-link">Doe</a></li>
+                    <li><a href="#metas" class="nav-link">Metas</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <main>
@@ -56,14 +71,14 @@
                     <!-- Coluna Direita: Painel de Arrecadação -->
                     <div class="home-fundraising-column">
                         <div class="fundraising-panel">
-                            <p class="panel-amount-raised">R$ <span id="panel-current-raised-amount">0,00</span></p>
+                            <p class="panel-amount-raised">R\$ <span id="panel-current-raised-amount">0,00</span></p>
                             <p class="panel-supporters">apoiados por <span id="panel-total-supporters">0</span> pessoas</p>
 
                             <div class="panel-progress-bar-container">
                                 <div id="panel-progress-bar" class="panel-progress-bar" style="width: 0%;"></div>
                             </div>
                             <p class="panel-percentage"><span id="panel-percentage-achieved">0</span>%</p>
-                            <p class="panel-goal-amount">Meta R$ 320.000,00</p>
+                            <p class="panel-goal-amount">Meta R\$ 320.000,00</p>
 
                             <a href="#doe" class="btn panel-btn-donate">Ajude o Gabriel</a>
                         </div>

@@ -24,15 +24,17 @@ body {
     background-color: var(--background-color);
 }
 
+/* O container principal não pode ter padding lateral em mobile, pois o menu overlay vai sobrepor. */
+/* Mas como você já tinha padding de 20px, vamos manter para as seções, e o header terá seu próprio container flex. */
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 0 20px; /* Ajuste para que o header possa controlar seu próprio padding */
 }
 
-/* Header e Navbar */
+/* Header e Navbar - ATUALIZADO PARA MENU HAMBÚRGUER */
 .header {
-    background-color: var(--primary-color); /* Agora usa o novo azul marinho */
+    background-color: var(--primary-color); /* Azul marinho */
     color: var(--white);
     padding: 15px 0;
     box-shadow: var(--shadow);
@@ -41,24 +43,156 @@ body {
     z-index: 1000;
 }
 
-.navbar {
+.header .container {
     display: flex;
-    justify-content: center;
-    gap: 30px;
+    justify-content: space-between; /* Alinha logo à esquerda e menu/hambúrguer à direita */
+    align-items: center;
+    max-width: 1200px; /* Largura máxima do seu conteúdo */
+    margin: 0 auto;
+    padding: 0 20px; /* Padding interno para o container do header */
 }
 
-.nav-link {
-    color: var(--white);
+.site-logo {
+    color: white;
     text-decoration: none;
+    font-size: 1.5em;
     font-weight: bold;
-    padding: 5px 10px;
+}
+
+/* ----------------------------------- */
+/* ESTILOS PARA MOBILE PRIMEIRO (menor que 768px) */
+/* ----------------------------------- */
+
+.main-nav {
+    display: none; /* Oculta o menu de navegação por padrão em mobile */
+    flex-direction: column;
+    position: fixed; /* Fixa o menu para cobrir a tela */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(13, 44, 108, 0.95); /* Fundo semi-transparente do seu azul (var --secondary-color com transparência) */
+    z-index: 1001; /* Garante que o menu esteja acima de outros elementos */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /* Transição para um efeito suave ao abrir/fechar */
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(100%); /* Esconde o menu para a direita */
+    -webkit-overflow-scrolling: touch; /* Melhora o scroll em iOS */
+    overflow-y: auto; /* Permite scroll se o conteúdo for maior que a tela */
+}
+
+/* Classe JavaScript para quando o menu estiver aberto */
+.main-nav.open {
+    display: flex; /* Exibe o menu quando a classe 'open' é adicionada */
+    transform: translateX(0); /* Move o menu para dentro da tela */
+}
+
+.main-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.main-nav li {
+    margin: 20px 0;
+}
+
+.nav-link { /* Usamos nav-link para os itens do menu, já que eles já existiam */
+    color: white;
+    text-decoration: none;
+    font-size: 1.8em; /* Tamanho maior para facilitar o clique em mobile */
+    padding: 10px 20px;
+    display: block;
+    /* Remover estilos de hover que talvez não funcionem bem como overlay */
+    background-color: transparent;
+    border-radius: 0;
     transition: background-color 0.3s ease;
 }
 
 .nav-link:hover {
-    background-color: var(--secondary-color); /* Agora usa o azul marinho mais escuro */
-    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
 }
+
+
+/* Estilos do Botão Hambúrguer */
+.hamburger-menu {
+    display: flex; /* Exibe o hambúrguer em mobile */
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1002; /* Garante que o hambúrguer esteja acima do menu */
+}
+
+.hamburger-menu .bar {
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Animação do Hambúrguer para um "X" (opcional, mas legal) */
+.hamburger-menu.active .bar:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 8px);
+}
+.hamburger-menu.active .bar:nth-child(2) {
+    opacity: 0;
+}
+.hamburger-menu.active .bar:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -8px);
+}
+
+
+/* ----------------------------------- */
+/* MEDIA QUERY PARA DESKTOP (maior que 768px) */
+/* ----------------------------------- */
+@media screen and (min-width: 768px) {
+    .hamburger-menu {
+        display: none; /* Oculta o hambúrguer em desktop */
+    }
+
+    .main-nav {
+        display: flex; /* Exibe o menu completo em desktop */
+        position: static; /* Volta à posição normal */
+        background-color: transparent; /* Remove o fundo do overlay */
+        width: auto;
+        height: auto;
+        transform: translateX(0); /* Garante que não haja transformação */
+        overflow-y: visible; /* Restaura o overflow padrão */
+    }
+
+    .main-nav ul {
+        display: flex; /* Itens do menu lado a lado */
+    }
+
+    .main-nav li {
+        margin: 0 15px; /* Espaçamento entre os itens */
+    }
+
+    .nav-link { /* Usa nav-link novamente para os itens do menu */
+        font-size: 1em; /* Tamanho normal para desktop */
+        padding: 5px 10px;
+    }
+
+    .nav-link:hover {
+        background-color: var(--secondary-color); /* Azul marinho mais escuro */
+        border-radius: 4px;
+    }
+}
+
+/* Estilo para evitar scroll da página quando o menu mobile está aberto */
+body.no-scroll {
+    overflow: hidden;
+}
+
 
 /* Seções gerais */
 .section {
@@ -423,12 +557,9 @@ p {
     font-size: 0.9em;
 }
 
-/* Media Queries para Responsividade */
+/* Media Queries para Responsividade (EXISTENTES) */
 @media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        gap: 10px;
-    }
+    /* As regras de menu responsivo já estão acima, na seção de header */
 
     .hero h1 {
         font-size: 2.2em;
@@ -492,6 +623,8 @@ p {
 }
 
 @media (max-width: 480px) {
+    /* As regras de menu responsivo já estão acima, na seção de header */
+
     .banner-heading {
         margin: 15px auto;
         padding: 8px 10px;

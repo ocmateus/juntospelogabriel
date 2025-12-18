@@ -1,5 +1,37 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Smooth scroll para os links do menu
+    // --- NOVO: Lógica para o Menu Hambúrguer ---
+    const hamburgerBtn = document.querySelector('.hamburger-menu');
+    const mainNav = document.querySelector('.main-nav');
+    const navLinks = document.querySelectorAll('.main-nav .nav-link'); // Seleciona todos os links do menu
+
+    if (hamburgerBtn && mainNav) {
+        hamburgerBtn.addEventListener('click', function() {
+            mainNav.classList.toggle('open'); // Alterna a classe 'open' no menu
+            hamburgerBtn.classList.toggle('active'); // Alterna a classe 'active' no hambúrguer para animação
+
+            // Adicionar/remover classe no body para evitar scroll quando o menu estiver aberto
+            document.body.classList.toggle('no-scroll');
+
+            // Atualiza o atributo aria-expanded para acessibilidade
+            const isExpanded = hamburgerBtn.getAttribute('aria-expanded') === 'true';
+            hamburgerBtn.setAttribute('aria-expanded', !isExpanded);
+        });
+
+        // Fechar o menu ao clicar em um item do menu (se for um menu overlay)
+        navLinks.forEach(item => {
+            item.addEventListener('click', () => {
+                if (mainNav.classList.contains('open')) {
+                    mainNav.classList.remove('open');
+                    hamburgerBtn.classList.remove('active');
+                    document.body.classList.remove('no-scroll');
+                    hamburgerBtn.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
+    }
+    // --- FIM NOVO: Lógica para o Menu Hambúrguer ---
+
+    // Smooth scroll para os links do menu (Seu código existente)
     document.querySelectorAll('.nav-link').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -10,12 +42,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Função auxiliar para formatar valores monetários
+    // Função auxiliar para formatar valores monetários (Seu código existente)
     function formatCurrency(amount) {
         return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(amount);
     }
 
-    // Lógica para carregar e exibir as metas e dados de arrecadação
+    // Lógica para carregar e exibir as metas e dados de arrecadação (Seu código existente)
     fetch('/static/goals.json')
         .then(response => response.json())
         .then(data => {
@@ -24,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const goals = data.goals;
 
             // --- Atualizar Painel de Arrecadação na seção Home ---
-            const totalGoalHomePanel = 300000.00; // Meta total fixa para o painel da Home
+            const totalGoalHomePanel = 320000.00; // Meta total fixa para o painel da Home
             document.getElementById('panel-current-raised-amount').textContent = formatCurrency(currentRaised).replace('R\$', '').trim(); // Remove R\$ para usar no span
             document.getElementById('panel-total-supporters').textContent = totalSupporters;
 
@@ -73,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(error => console.error('Erro ao carregar as metas:', error));
 
 
-    // Lógica para inicializar múltiplos Carrosséis de Imagens
+    // Lógica para inicializar múltiplos Carrosséis de Imagens (Seu código existente)
     function initializeCarousel(carouselContainer) {
         const carouselSlide = carouselContainer.querySelector('.carousel-slide');
         const carouselImages = carouselContainer.querySelectorAll('.carousel-slide .carousel-image');
@@ -120,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Inicializa todos os carrosséis encontrados na página
+    // Inicializa todos os carrosséis encontrados na página (Seu código existente)
     document.querySelectorAll('.carousel-container').forEach(carousel => {
         initializeCarousel(carousel);
     });
