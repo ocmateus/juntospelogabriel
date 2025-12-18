@@ -1,0 +1,19 @@
+# netlify.toml
+
+[build]
+  # O comando de build que vai copiar seus arquivos para uma pasta de distribuição
+  # 1. Cria a pasta 'dist' se ela não existir
+  # 2. Copia 'templates/index.html' para 'dist/index.html'
+  # 3. Copia recursivamente a pasta 'static' para 'dist/static'
+  command = "mkdir -p dist && cp templates/index.html dist/index.html && cp -r static dist/static"
+
+  # A pasta que o Netlify deve publicar
+  publish = "dist"
+
+# Se você quiser que o Netlify sirva o app.py via Netlify Functions (Serverless)
+# Isso é mais avançado e exigiria um 'serverless function' para o Flask.
+# Por enquanto, estamos focando em servir o site como puramente estático.
+# Se você realmente precisar que o Flask rode, me avise para ajustarmos aqui.
+# [functions]
+#   python_version = "3.9" # Ou a versão que seu app.py usa
+#   directory = "netlify/functions" # Onde suas funções Python estariam
