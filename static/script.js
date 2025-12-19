@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(amount);
     }
 
-    // Lógica para carregar e exibir as metas e dados de arrecadação
+    // Lógica para carregar e exibir as metas e dados de arrecadação (ATUALIZADA)
     fetch('/static/goals.json')
         .then(response => response.json())
         .then(data => {
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // --- Atualizar Painel de Arrecadação na seção Home ---
             const totalGoalHomePanel = 320000.00; // Meta total fixa para o painel da Home
-            document.getElementById('panel-current-raised-amount').textContent = formatCurrency(currentRaised).replace('R\$', '').trim(); // Remove R\$ para usar no span
+            document.getElementById('panel-current-raised-amount').textContent = formatCurrency(currentRaised).replace('R$', '').trim(); // Remove R$ para usar no span
             document.getElementById('panel-total-supporters').textContent = totalSupporters;
 
             let progressPercentageHomePanel = (currentRaised / totalGoalHomePanel) * 100;
@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('panel-progress-bar').style.width = `${progressPercentageHomePanel}%`;
             document.getElementById('panel-percentage-achieved').textContent = Math.round(progressPercentageHomePanel);
 
-            // --- Atualizar seção Metas ---
+            // --- Atualizar seção Metas (LÓGICA ATUALIZADA) ---
             let totalTarget = 0;
             goals.forEach(goal => {
                 totalTarget += goal.target_amount;
@@ -140,13 +140,23 @@ document.addEventListener('DOMContentLoaded', () => {
             const goalsList = document.getElementById('goals-list');
             goalsList.innerHTML = ''; // Limpa qualquer conteúdo existente
 
+            let remainingRaisedForGoals = currentRaised; // Valor arrecadado disponível para preencher as metas
+
             goals.forEach(goal => {
                 const goalElement = document.createElement('div');
                 goalElement.classList.add('goal-item');
 
-                const progress = Math.min((currentRaised / goal.target_amount) * 100, 100);
-                const goalAchievedAmount = Math.min(currentRaised, goal.target_amount);
-                const goalRemainingAmount = Math.max(0, goal.target_amount - currentRaised);
+                // Calcula o valor arrecadado para ESTA meta específica
+                const amountForThisGoal = Math.min(remainingRaisedForGoals, goal.target_amount);
+
+                // Calcula o progresso percentual para ESTA meta
+                const progress = (amountForThisGoal / goal.target_amount) * 100;
+
+                // Calcula o que foi de fato atingido desta meta (limitado ao próprio valor da meta)
+                const goalAchievedAmount = amountForThisGoal;
+
+                // Calcula o que ainda falta para ESTA meta (se remainingRaisedForGoals já cobriu, será 0)
+                const goalRemainingAmount = Math.max(0, goal.target_amount - amountForThisGoal);
 
                 goalElement.innerHTML = `
                     <h3>${goal.name}</h3>
@@ -162,12 +172,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 `;
                 goalsList.appendChild(goalElement);
+
+                // Deduz o valor que foi usado para preencher esta meta do total disponível
+                remainingRaisedForGoals -= amountForThisGoal;
             });
         })
         .catch(error => console.error('Erro ao carregar as metas:', error));
 
 
-    // --- Lógica para inicializar múltiplos Carrosséis de Imagens (ATUALIZADO E REVISADO) ---
+    // --- Lógica para inicializar múltiplos Carrosséis de Imagens ---
     function initializeCarousel(carouselContainer) {
         const carouselSlide = carouselContainer.querySelector('.carousel-slide');
         const carouselImages = carouselContainer.querySelectorAll('.carousel-slide .carousel-image');
@@ -199,6 +212,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function updateCarousel(instant = false) {
+            // Verifica se carouselSlide existe e tem clientWidth
+            if (!carouselSlide || carouselSlide.clientWidth === 0) {
+                return;
+            }
             currentTranslate = -currentIndex * carouselSlide.clientWidth; // Calcula a nova posição baseada no índice e largura da imagem
             if (instant) {
                 carouselSlide.style.transition = 'none'; // Remove transição para pulo instantâneo
