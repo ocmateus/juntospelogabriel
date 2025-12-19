@@ -629,6 +629,38 @@ p {
     font-size: 0.9em;
 }
 
+/* NOVO: Estilos para a seção Acompanhe */
+.social-links {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.social-links a {
+    color: var(--primary-color); /* Cor principal para o ícone */
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.social-links a:hover {
+    transform: translateY(-5px);
+}
+
+.social-links svg {
+    width: 48px; /* Tamanho do ícone */
+    height: 48px;
+    fill: none;
+    stroke: var(--primary-color); /* Cor da linha do ícone */
+    stroke-width: 2;
+    transition: stroke 0.3s ease;
+}
+
+.social-links a:hover svg {
+    stroke: var(--secondary-color); /* Cor mais escura no hover */
+}
+
+
 /* Media Queries para Responsividade (EXISTENTES) */
 @media (max-width: 768px) {
     /* As regras de menu responsivo já estão acima, na seção de header */
@@ -657,9 +689,7 @@ p {
         height: 400px; /* Ajusta a altura do carrossel para telas menores */
     }
 
-    /* Removida a regra `display: none` para `.carousel-button`
-       para que os botões de navegação apareçam no mobile também.
-       Se ficarem grandes, pode-se ajustar o tamanho do padding ou SVG aqui. */
+    /* Mantém os botões de navegação visíveis no mobile */
     .carousel-button {
         padding: 8px; /* Diminui um pouco o botão no mobile */
     }
