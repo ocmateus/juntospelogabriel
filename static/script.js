@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(error => console.error('Erro ao carregar as metas:', error));
 
 
-    // --- Lógica para inicializar múltiplos Carrosséis de Imagens (ATUALIZADO) ---
+    // --- Lógica para inicializar múltiplos Carrosséis de Imagens (ATUALIZADO E REVISADO) ---
     function initializeCarousel(carouselContainer) {
         const carouselSlide = carouselContainer.querySelector('.carousel-slide');
         const carouselImages = carouselContainer.querySelectorAll('.carousel-slide .carousel-image');
@@ -177,24 +177,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let currentIndex = 0;
         const totalImages = carouselImages.length;
-        const intervalTime = 4000; // Tempo em milissegundos (4 segundos) para a troca de imagem
+        const intervalTime = 5000; // Tempo em milissegundos (5 segundos) para a troca de imagem
         let slideInterval; // Variável para controlar o intervalo automático
 
-        let startX; // Para funcionalidade de swipe
+        let startX = 0; // Posição X inicial do toque
+        let currentTranslate = 0; // Posição atual do carrossel
+        let prevTranslate = 0; // Posição anterior do carrossel
         let isDragging = false;
         const swipeThreshold = 50; // Mínimo de pixels para considerar um swipe
 
-        if (totalImages === 0) { // Se não houver imagens, não inicializa o carrossel
+        if (totalImages === 0) {
             return;
         }
 
         // Garante que o carrossel é "arrastável" no eixo X para detectar o swipe
-        carouselSlide.style.touchAction = 'pan-y'; // Permite rolagem vertical mas não horizontal no elemento
+        carouselSlide.style.touchAction = 'pan-y';
+        carouselSlide.style.transition = 'transform 0.5s ease-in-out'; // Re-adiciona a transição via JS para controle
 
-        function updateCarousel() {
-            if (carouselSlide) {
-                // A transição agora é controlada pelo CSS via `carousel-slide`
-                carouselSlide.style.transform = `translateX(-${currentIndex * 100}%)`;
+        function setSliderPosition() {
+            carouselSlide.style.transform = `translateX(${currentTranslate}px)`;
+        }
+
+        function updateCarousel(instant = false) {
+            currentTranslate = -currentIndex * carouselSlide.clientWidth; // Calcula a nova posição baseada no índice e largura da imagem
+            if (instant) {
+                carouselSlide.style.transition = 'none'; // Remove transição para pulo instantâneo
+                setSliderPosition();
+                // Forçar um reflow para garantir que a transição seja removida antes de reativá-la
+                carouselSlide.offsetWidth;
+                carouselSlide.style.transition = 'transform 0.5s ease-in-out'; // Re-ativa transição
+            } else {
+                setSliderPosition();
             }
 
             carouselDots.forEach((dot, i) => {
@@ -205,83 +218,107 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        function nextSlide() {
-            currentIndex = (currentIndex + 1) % totalImages;
-            updateCarousel();
-            resetInterval(); // Reseta o intervalo após navegação manual
+        // FUNÇÕES PARA CONTROLE DO TEMPORIZADOR AUTOMÁTICO
+        function startAutoSlide() {
+            clearInterval(slideInterval); // Limpa qualquer temporizador existente
+            slideInterval = setInterval(() => {
+                currentIndex = (currentIndex + 1) % totalImages;
+                updateCarousel();
+            }, intervalTime);
         }
 
-        function prevSlide() {
-            currentIndex = (currentIndex - 1 + totalImages) % totalImages; // Garante que o índice não seja negativo
-            updateCarousel();
-            resetInterval(); // Reseta o intervalo após navegação manual
+        function stopAutoSlide() {
+            clearInterval(slideInterval); // Para o temporizador automático
         }
 
-        function startInterval() {
-            slideInterval = setInterval(nextSlide, intervalTime);
-        }
+        // Inicializa o carrossel na posição 0 e inicia o auto-slide
+        updateCarousel(true); // Atualiza instantaneamente para garantir a posição inicial correta
+        startAutoSlide();
 
-        function resetInterval() {
-            clearInterval(slideInterval);
-            startInterval();
-        }
-
-        // Inicia o carrossel automático
-        startInterval();
-
-        // Adiciona funcionalidade aos botões de navegação
+        // ADICIONA FUNCIONALIDADE AOS BOTÕES DE NAVEGAÇÃO
         if (prevBtn) {
-            prevBtn.addEventListener('click', prevSlide);
+            prevBtn.addEventListener('click', () => {
+                stopAutoSlide(); // Para o auto-slide
+                currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+                updateCarousel();
+                startAutoSlide(); // Reinicia o auto-slide
+            });
         }
         if (nextBtn) {
-            nextBtn.addEventListener('click', nextSlide);
+            nextBtn.addEventListener('click', () => {
+                stopAutoSlide(); // Para o auto-slide
+                currentIndex = (currentIndex + 1) % totalImages;
+                updateCarousel();
+                startAutoSlide(); // Reinicia o auto-slide
+            });
         }
 
-        // Adiciona funcionalidade aos pontinhos (dots)
+        // ADICIONA FUNCIONALIDADE AOS PONTINHOS (dots)
         carouselDots.forEach((dot, index) => {
             dot.addEventListener('click', () => {
+                stopAutoSlide(); // Para o auto-slide
                 currentIndex = index;
                 updateCarousel();
-                resetInterval(); // Reseta o timer do carrossel automático ao clicar em um dot
+                startAutoSlide(); // Reinicia o auto-slide
             });
         });
 
-        // --- Funcionalidade de Swipe (arrastar) ---
-        carouselContainer.addEventListener('touchstart', (e) => {
+        // --- FUNCIONALIDADE DE SWIPE (arrastar) ---
+        carouselSlide.addEventListener('touchstart', (e) => {
+            stopAutoSlide(); // Para o auto-slide ao iniciar o toque
             startX = e.touches[0].clientX;
             isDragging = true;
-            clearInterval(slideInterval); // Para o carrossel automático durante o swipe
+            prevTranslate = currentTranslate; // Guarda a posição atual antes de começar a arrastar
+            carouselSlide.style.transition = 'none'; // Remove transição para arrasto suave
         });
 
-        carouselContainer.addEventListener('touchmove', (e) => {
+        carouselSlide.addEventListener('touchmove', (e) => {
             if (!isDragging) return;
-            // Previne o scroll da página se o movimento for horizontal suficiente para ser um swipe
-            // Esta parte pode ser tricky, e nem sempre é ideal prevenir o default imediatamente.
-            // Para um swipe simples, detectar no touchend é mais robusto inicialmente.
+            const currentX = e.touches[0].clientX;
+            const diffX = currentX - startX;
+            currentTranslate = prevTranslate + diffX; // Move o slide junto com o dedo
+
+            // Limita o arrasto para não ir muito além dos limites
+            const maxTranslate = 0;
+            const minTranslate = -(totalImages - 1) * carouselSlide.clientWidth;
+            currentTranslate = Math.max(minTranslate - swipeThreshold, Math.min(maxTranslate + swipeThreshold, currentTranslate));
+
+            setSliderPosition(); // Atualiza a posição visual
         });
 
-        carouselContainer.addEventListener('touchend', (e) => {
+        carouselSlide.addEventListener('touchend', (e) => {
             if (!isDragging) return;
             isDragging = false;
+            carouselSlide.style.transition = 'transform 0.5s ease-in-out'; // Re-ativa transição
 
-            const endX = e.changedTouches[0].clientX;
-            const diffX = startX - endX;
+            const movedBy = currentTranslate - prevTranslate; // Quanto o slide se moveu do ponto inicial do arrasto
 
-            if (Math.abs(diffX) > swipeThreshold) {
-                if (diffX > 0) { // Swiped left (next slide)
-                    nextSlide();
-                } else { // Swiped right (previous slide)
-                    prevSlide();
-                }
-            } else {
-                updateCarousel(); // Garante que a imagem volte se o swipe for muito pequeno
+            if (movedBy < -swipeThreshold) { // Arrasto para a esquerda (próximo slide)
+                currentIndex = (currentIndex + 1) % totalImages;
+            } else if (movedBy > swipeThreshold) { // Arrasto para a direita (slide anterior)
+                currentIndex = (currentIndex - 1 + totalImages) % totalImages;
             }
-            startInterval(); // Reinicia o carrossel automático
+            // Se o movimento não atingiu o threshold, o currentIndex permanece o mesmo
+            // e a imagem retornará à sua posição original.
+
+            updateCarousel(); // Atualiza para a posição final correta (com transição)
+            startAutoSlide(); // Reinicia o auto-slide após o toque terminar
         });
 
+        carouselSlide.addEventListener('touchcancel', () => { // Caso o toque seja cancelado
+            isDragging = false;
+            carouselSlide.style.transition = 'transform 0.5s ease-in-out';
+            updateCarousel(); // Volta para a posição atual sem mudar o slide
+            startAutoSlide();
+        });
+
+
         // Adiciona funcionalidade para parar e reiniciar o carrossel no hover (desktop)
-        carouselContainer.addEventListener('mouseenter', () => clearInterval(slideInterval));
-        carouselContainer.addEventListener('mouseleave', () => startInterval());
+        carouselContainer.addEventListener('mouseenter', stopAutoSlide);
+        carouselContainer.addEventListener('mouseleave', startAutoSlide);
+
+        // Atualiza a posição do carrossel caso a janela seja redimensionada
+        window.addEventListener('resize', () => updateCarousel(true));
     }
 
     // Inicializa todos os carrosséis encontrados na página

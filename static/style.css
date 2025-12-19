@@ -398,8 +398,8 @@ p {
 .carousel-slide {
     display: flex;
     height: 100%;
-    /* Remova a transição CSS aqui se o JS for controlar o movimento para swipe mais suave */
-    transition: transform 0.5s ease-in-out;
+    /* REMOVIDA A TRANSIÇÃO CSS AQUI. O JS vai controlar a transição no swipe */
+    /* transition: transform 0.5s ease-in-out; */
 }
 
 .carousel-image {
@@ -433,7 +433,7 @@ p {
     background-color: var(--primary-color); /* Agora usa o novo azul marinho */
 }
 
-/* NOVO: Estilos para os botões de navegação do carrossel */
+/* Estilos para os botões de navegação do carrossel */
 .carousel-button {
     position: absolute;
     top: 50%;
@@ -657,10 +657,17 @@ p {
         height: 400px; /* Ajusta a altura do carrossel para telas menores */
     }
 
-    /* Oculta os botões de navegação do carrossel em mobile para priorizar o swipe */
+    /* Removida a regra `display: none` para `.carousel-button`
+       para que os botões de navegação apareçam no mobile também.
+       Se ficarem grandes, pode-se ajustar o tamanho do padding ou SVG aqui. */
     .carousel-button {
-        display: none;
+        padding: 8px; /* Diminui um pouco o botão no mobile */
     }
+    .carousel-button svg {
+        width: 16px; /* Diminui um pouco o ícone no mobile */
+        height: 16px;
+    }
+
 
     .fundraising-panel {
         padding: 20px;
