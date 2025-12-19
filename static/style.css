@@ -398,6 +398,7 @@ p {
 .carousel-slide {
     display: flex;
     height: 100%;
+    /* Remova a transição CSS aqui se o JS for controlar o movimento para swipe mais suave */
     transition: transform 0.5s ease-in-out;
 }
 
@@ -430,6 +431,42 @@ p {
 
 .dot.active {
     background-color: var(--primary-color); /* Agora usa o novo azul marinho */
+}
+
+/* NOVO: Estilos para os botões de navegação do carrossel */
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
+    color: var(--white);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10; /* Acima das imagens */
+    border-radius: 50%; /* Botão redondo */
+    display: flex; /* Para centralizar o SVG */
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-button.prev {
+    left: 10px;
+}
+
+.carousel-button.next {
+    right: 10px;
+}
+
+.carousel-button svg {
+    width: 20px; /* Tamanho do ícone SVG */
+    height: 20px;
+    stroke: var(--white); /* Cor do ícone */
 }
 
 /* Estilos para a imagem centralizada na seção */
@@ -474,7 +511,7 @@ p {
     font-size: 1.1em;
 }
 
-/* NOVO: Estilos para o botão de copiar CPF e feedback */
+/* Estilos para o botão de copiar CPF e feedback */
 .btn-copy-pix {
     background-color: var(--primary-color); /* Usa a cor primária do tema */
     color: var(--white);
@@ -620,6 +657,11 @@ p {
         height: 400px; /* Ajusta a altura do carrossel para telas menores */
     }
 
+    /* Oculta os botões de navegação do carrossel em mobile para priorizar o swipe */
+    .carousel-button {
+        display: none;
+    }
+
     .fundraising-panel {
         padding: 20px;
     }
@@ -656,7 +698,7 @@ p {
         color: #444; /* Mantém a cor escura no mobile */
     }
 
-    /* NOVO: Ajustes para o botão de copiar em mobile */
+    /* Ajustes para o botão de copiar em mobile */
     .btn-copy-pix {
         width: auto; /* Permite que o botão se ajuste ao conteúdo */
         max-width: 150px; /* Limita a largura para não ficar muito grande */
