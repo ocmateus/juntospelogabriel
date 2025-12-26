@@ -1,6 +1,6 @@
 {
-  "current_raised": 102994.37,
-  "total_supporters": 705,
+  "current_raised": 104543.37,
+  "total_supporters": 709,
   "goals": [
     {
       "name": "Prótese Transtibial",
@@ -21,11 +21,6 @@
       "name": "Concluir Faculdade",
       "target_amount": 25000.00,
       "description": "Reformas na casa para acessibilidade"
-    },
-    {
-      "name": "Veículo Adaptado",
-      "target_amount": 80000.00,
-      "description": "Aquisição e adaptação de um carro para locomoção."
     }
   ]
 }
